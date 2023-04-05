@@ -8,84 +8,52 @@ package bryan.basepluscommissionemployee;
  *
  * @author EL GUARDIAN
  */
-public class CommissionEmployee  {
-   private final String firstName;                        
-   private final String lastName;                         
-   private final String socialSecurityNumber;             
-   private double grossSales; // gross weekly sales       
-   private double commissionRate; // commission percentage
+public class CommissionEmployee extends Employee {
+    private double grossSales;
+    private double commissionRate;
 
-   // five-argument constructor
-   public CommissionEmployee(String firstName, String lastName, 
-      String socialSecurityNumber, double grossSales, 
-      double commissionRate) {
-      // implicit call to Object constructor occurs here
+    public CommissionEmployee(String firstName, String lastName, String socialSecurityNumber,
+                              double grossSales, double commissionRate) {
+        super(firstName, lastName, socialSecurityNumber);
 
-      // if grossSales is invalid throw exception
-      if (grossSales < 0.0) {
-         throw new IllegalArgumentException("Gross sales must be >= 0.0");
-      }      
+        if (grossSales < 0.0) {
+            throw new IllegalArgumentException("Gross sales must be >= 0.0");
+        }
 
-      // if commissionRate is invalid throw exception
-      if (commissionRate <= 0.0 || commissionRate >= 1.0) {
-         throw new IllegalArgumentException(
-            "Commission rate must be > 0.0 and < 1.0");
-      }      
+        if (commissionRate <= 0.0 || commissionRate >= 1.0) {
+            throw new IllegalArgumentException("Commission rate must be > 0.0 and < 1.0");
+        }
 
-      this.firstName = firstName;                                    
-      this.lastName = lastName;                                    
-      this.socialSecurityNumber = socialSecurityNumber;         
-      this.grossSales = grossSales;
-      this.commissionRate = commissionRate;
-   } 
+        this.grossSales = grossSales;
+        this.commissionRate = commissionRate;
+    }
 
-   // return first name
-   public String getFirstName() {return firstName;}
+    public void setGrossSales(double grossSales) {
+        if (grossSales < 0.0) {
+            throw new IllegalArgumentException("Gross sales must be >= 0.0");
+        }
 
-   // return last name
-   public String getLastName() {return lastName;}
+        this.grossSales = grossSales;
+    }
+    public double getGrossSales() { return grossSales; }
 
-   // return social security number 
-   public String getSocialSecurityNumber() {return socialSecurityNumber;}
+    public void setCommissionRate(double commissionRate) {
+        if (commissionRate <= 0.0 || commissionRate >= 1.0) {
+            throw new IllegalArgumentException("Commission rate must be > 0.0 and < 1.0");
+        }
 
-   // set gross sales amount
-   public void setGrossSales(double grossSales) {
-      if (grossSales < 0.0) {
-         throw new IllegalArgumentException("Gross sales must be >= 0.0");
-      }      
+        this.commissionRate = commissionRate;
+    }
 
-      this.grossSales = grossSales;
-   } 
+    public double getCommissionRate() { return commissionRate; }
 
-   
-   // return gross sales amount
-   public double getGrossSales() {return grossSales;}
+    public double earnings() {
+        return getCommissionRate() * getGrossSales();
+    }
 
-   // set commission rate
-   public void setCommissionRate(double commissionRate) {
-      if (commissionRate <= 0.0 || commissionRate >= 1.0) {
-         throw new IllegalArgumentException(
-            "Commission rate must be > 0.0 and < 1.0");
-      } 
-
-      this.commissionRate = commissionRate;
-   } 
-
-   // return commission rate
-   public double getCommissionRate() {return commissionRate;}
-
-   // calculate earnings
-   public double earnings() {
-      return getCommissionRate() * getGrossSales();
-   } 
-
-   // return String representation of CommissionEmployee object
-   @Override 
-   public String toString() {
-      return String.format("%s: %s %s%n%s: %s%n%s: %.2f%n%s: %.2f", 
-         "commission employee", getFirstName(), getLastName(), 
-         "social security number", getSocialSecurityNumber(), 
-         "gross sales", getGrossSales(), 
-         "commission rate", getCommissionRate());
-   } 
-} 
+    @Override
+    public String toString() {
+        return String.format("%s%n%s: %.2f%n%s: %.2f", super.toString(),
+                "gross sales", getGrossSales(), "commission rate", getCommissionRate());
+    }
+}
