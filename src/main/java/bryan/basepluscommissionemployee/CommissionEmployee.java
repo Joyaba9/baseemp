@@ -57,6 +57,7 @@ public class CommissionEmployee  {
       this.grossSales = grossSales;
    } 
 
+   
    // return gross sales amount
    public double getGrossSales() {return grossSales;}
 
